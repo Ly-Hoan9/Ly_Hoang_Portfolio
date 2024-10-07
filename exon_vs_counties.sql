@@ -2,6 +2,8 @@
 Purpose: 
      how long does it take to get a bond exonerate?
      how counties impact the length of exoneration?
+Tableau:
+	https://public.tableau.com/views/ExonerationLengthReport/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 */
 
 -- return number of bonds that took less than 1 year to exonerate
