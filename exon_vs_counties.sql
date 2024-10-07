@@ -21,12 +21,26 @@ WHERE DATEDIFF(discharge_date, bond_date) = (SELECT max(DATEDIFF(discharge_date,
 											 FROM exoneration.discharge_report
 											 WHERE DATEDIFF(discharge_date, bond_date) >= 0);
                     
--- return bonds by counties and their frequencies
+-- Return exon bonds by counties and their frequencies
 SELECT lead_source, COUNT(lead_source)
 FROM exoneration.discharge_report
 WHERE DATEDIFF(discharge_date, bond_date) >= 0
 GROUP BY lead_source
-ORDER BY COUNT(lead_source) DESC;    
+ORDER BY COUNT(lead_source) DESC;
+
+-- Return exon bonds by counties and their frequencies (took <= 1 year to exonerate)
+SELECT lead_source, COUNT(lead_source)
+FROM exoneration.discharge_report
+WHERE DATEDIFF(discharge_date, bond_date) BETWEEN 0 AND 365
+GROUP BY lead_source
+ORDER BY COUNT(lead_source) DESC;
+
+-- Return exon bonds by counties and their frequencies (took > 1 year to exonerate)
+SELECT lead_source, COUNT(lead_source)
+FROM exoneration.discharge_report
+WHERE DATEDIFF(discharge_date, bond_date) > 365
+GROUP BY lead_source
+ORDER BY COUNT(lead_source) DESC;
             
 -- return the number of bonds that got exonerated in the given time frame (less than 1 year)
 SELECT COUNT(power_number) FROM exoneration.discharge_report WHERE DATEDIFF(discharge_date, bond_date) BETWEEN 0 AND 31 -- take 1 month to exonerate
